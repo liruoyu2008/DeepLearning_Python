@@ -19,11 +19,13 @@ import matplotlib.pyplot as plt
     num_words=10000)
 
 
-# 由于每条影评长度不一，因此将多个行向量规整为二维矩阵
-# 若原向量中出现过某数值，则以该数值为索引
-# 二维矩阵中对应行内该索引处元素置为1
-# （意为忽略某单词出现的位置和次数，只关心该单词是否出现过）
 def vectorize_sequences(sequences, dimension=10000):
+    """
+    由于每条影评长度不一，因此将多个行向量规整为二维矩阵,
+    若原向量中出现过某数值，则以该数值为索引,
+    二维矩阵中对应行内该索引处元素置为1
+    （意为忽略某单词出现的位置和次数，只关心该单词是否出现过）
+    """
     results = np.zeros((len(sequences), dimension))
     for i, sequence in enumerate(sequences):
         results[i, sequence] = 1.
