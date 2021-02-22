@@ -1,7 +1,9 @@
-import numpy as np
+def foo(a=1, b="abc", **kwargs):
+    print('a = ', a)
+    print('b = ', b)
+    print('kwargs = ', kwargs)
+    print('---------------------------------------')
 
-a = np.array([[1, 2, 3],
-              [2, 3, 4]])
-b = np.array([2, 3, 4])
-print(a.dot(b)+np.array([1, 2]))
 
+if __name__ == '__main__':
+    foo(a=1, c=3)
