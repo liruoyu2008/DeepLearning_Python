@@ -16,19 +16,19 @@ import matplotlib.pyplot as plt
 
 # 载入数据集
 (train_data, train_labels), (test_data, test_labels) = imdb.load_data(
-        num_words=10000)
+    num_words=10000)
 
-"""
-将多个行向量规整为二维矩阵
-若原向量中出现过某数值，则已改数值为索引
-二维矩阵中对应行内该索引处元素置为1
-（意为忽略某单词出现的位置和次数，只关心该单词是否出现过）
-"""
+
+# 将多个行向量规整为二维矩阵
+# 若原向量中出现过某数值，则以该数值为索引
+# 二维矩阵中对应行内该索引处元素置为1
+# （意为忽略某单词出现的位置和次数，只关心该单词是否出现过）
 def vectorize_sequences(sequences, dimension=10000):
     results = np.zeros((len(sequences), dimension))
     for i, sequence in enumerate(sequences):
         results[i, sequence] = 1.
     return results
+
 
 # 将训练与测试数据矩阵化
 x_train = vectorize_sequences(train_data)
@@ -40,21 +40,21 @@ y_test = np.asarray(test_labels).astype('float32')
 
 # 网络结构
 model = models.Sequential()
-model.add(layers.Dense(64, activation='relu', input_shape=(10000,)))
-model.add(layers.Dense(64, activation='relu'))
+model.add(layers.Dense(16, activation='relu', input_shape=(10000,)))
+model.add(layers.Dense(16, activation='relu'))
 model.add(layers.Dense(1, activation='sigmoid'))
 model.compile(optimizer=optimizers.RMSprop(lr=0.001),
               loss=losses.binary_crossentropy,
               metrics=[metrics.binary_accuracy])
 
 # 训练
-history = model.fit(x_train,y_train,epochs=20,batch_size=512)
+history = model.fit(x_train, y_train, epochs=20, batch_size=512)
 
 # 输出训练历史
 history_dict = history.history
 loss_values = history_dict['loss']
-epochs = range(1,len(loss_values)+1)
-plt.plot(epochs,loss_values,'b',label = 'Training loss')
+epochs = range(1, len(loss_values)+1)
+plt.plot(epochs, loss_values, 'b', label='Training loss')
 
 # 测试
 test_loss, test_acc = model.evaluate(x_test, y_test)
