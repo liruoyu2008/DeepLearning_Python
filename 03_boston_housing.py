@@ -16,7 +16,7 @@ import matplotlib.pyplot as plt
 (train_data, train_targets), (test_data, test_targets) = boston_housing.load_data()
 print(train_data[0])
 
-# 数据归一化
+# 数据归一化（axis表示在哪一个维度上进行操作，0表示在样本轴上求平均，1在本例中则表示在样本内部的13个值间求平均）
 mean = train_data.mean(axis=0)
 print(mean)
 train_data -= mean
