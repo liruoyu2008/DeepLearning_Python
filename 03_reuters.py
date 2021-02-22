@@ -41,7 +41,9 @@ def vectorize_sequences(sequences, dimension=10000):
 x_train = vectorize_sequences(train_data)
 x_test = vectorize_sequences(test_data)
 
-# 向量化标签
+# 向量化标签（对应后面损失函数的选择）
+# 如果标签集通过one-hot编码为矩阵，例如[[1,0,0],[0,0,1],[0,1,0]]，则对应损失函数为categorical_crossentropy
+# 如果保持为原始标签向量集,例如[1,3,2]，则对应损失函数为sparse_categorical_crossentropy
 one_hot_train_labels = np.array(train_labels)
 one_hot_test_labels = np.array(test_labels)
 #one_hot_train_labels = to_categorical(train_labels)
@@ -60,10 +62,10 @@ model.add(layers.Dense(64, activation='relu', input_shape=(10000,)))
 model.add(layers.Dense(64, activation='relu'))
 model.add(layers.Dense(46, activation='softmax'))
 
-# 编译
+# 编译(损失函数的选择需匹配标签集的表示形式)
 model.compile(optimizer='rmsprop',
               loss='sparse_categorical_crossentropy',
-              #             loss='categorical_crossentropy',
+              # loss='categorical_crossentropy',
               metrics=['accuracy'])
 
 
