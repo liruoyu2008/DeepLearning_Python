@@ -3,7 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="f34d9d3d-11b7-4964-be12-750ef4ef87cc" name="默认的" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/01_mnist.py" beforeDir="false" afterPath="$PROJECT_DIR$/01_mnist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/03_boston_housing.py" beforeDir="false" afterPath="$PROJECT_DIR$/03_boston_housing.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/03_imdb.py" beforeDir="false" afterPath="$PROJECT_DIR$/03_imdb.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/03_reuters.py" beforeDir="false" afterPath="$PROJECT_DIR$/03_reuters.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,6 +64,25 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="ADDITIONAL_ARGS" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="03_imdb" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="PythonDeepLearning" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/03_imdb.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
@@ -178,6 +200,11 @@
       <option name="_new_targetType" value="&quot;PATH&quot;" />
       <method v="2" />
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.03_imdb" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -188,7 +215,7 @@
       <option name="presentableId" value="Default" />
       <updated>1614067088046</updated>
       <workItem from="1614067104053" duration="1136000" />
-      <workItem from="1614068286159" duration="396000" />
+      <workItem from="1614068286159" duration="1301000" />
     </task>
     <task id="LOCAL-00001" summary="添加pycharm项目相关的配置文件">
       <created>1614068531101</created>
@@ -197,7 +224,14 @@
       <option name="project" value="LOCAL" />
       <updated>1614068531101</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="更新提交">
+      <created>1614068699113</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1614068699113</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -242,6 +276,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="添加pycharm项目相关的配置文件" />
-    <option name="LAST_COMMIT_MESSAGE" value="添加pycharm项目相关的配置文件" />
+    <MESSAGE value="更新提交" />
+    <option name="LAST_COMMIT_MESSAGE" value="更新提交" />
   </component>
 </project>

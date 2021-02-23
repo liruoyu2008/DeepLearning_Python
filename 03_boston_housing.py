@@ -11,6 +11,7 @@ from keras import layers
 from keras.metrics import MeanSquaredError
 import numpy as np
 import matplotlib.pyplot as plt
+import ipykernel
 
 # 载入数据集
 (train_data, train_targets), (test_data, test_targets) = boston_housing.load_data()
