@@ -15,10 +15,7 @@ from keras import metrics
 import matplotlib.pyplot as plt
 
 # 载入数据集
-# (train_data, train_labels), (test_data, test_labels) = imdb.load_data(
-#    num_words=10000)
-(train_data, train_labels), (test_data, test_labels) = imdb.load_data(
-    num_words=10000)
+(train_data, train_labels), (test_data, test_labels) = imdb.load_data(num_words=10000)
 
 
 def vectorize_sequences(sequences, dimension=10000):
@@ -57,7 +54,7 @@ history = model.fit(x_train, y_train, epochs=20, batch_size=512)
 # 输出训练历史
 history_dict = history.history
 loss_values = history_dict['loss']
-epochs = range(1, len(loss_values)+1)
+epochs = range(1, len(loss_values) + 1)
 plt.plot(epochs, loss_values, 'b', label='Training loss')
 plt.show()
 
