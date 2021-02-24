@@ -11,7 +11,6 @@ from keras.utils.np_utils import to_categorical
 from keras import models
 from keras import layers
 import matplotlib.pyplot as plt
-import ipykernel
 
 # 载入数据集并输出样本轴大小
 (train_data, train_labels), (test_data, test_labels) = reuters.load_data(
