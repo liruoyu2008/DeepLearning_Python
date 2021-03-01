@@ -141,7 +141,7 @@ history = model.fit_generator(
     validation_steps=50)
 
 # 保存模型
-model.save('cats_and_dogs_small_1.h5')
+model.save('05_dogs_cats.h5')
 
 # 获取与展示训练、验证数据
 acc = history.history['acc']
