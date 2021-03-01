@@ -56,11 +56,12 @@ conv_base.trainable = False
 print('This is the number of trainable weights '
       'after freezing the conv base:', len(model.trainable_weights))
 
-# 冻结操作后再编译网络才能使冻结生效
+# 结操作后再编译网络才能使冻结生效
 model.compile(loss='binary_crossentropy',
               optimizer=optimizers.RMSprop(lr=2e-5),
               metrics=['acc'])
 
+# 【完全冻结训练】
 history = model.fit_generator(
     train_generator,
     steps_per_epoch=100,
@@ -68,7 +69,54 @@ history = model.fit_generator(
     validation_data=validation_generator,
     validation_steps=50)
 
-model.save('05_dogs_cats_pre_train_with_augement.h5')
+
+# 经过一次完全冻结训练后，去掉卷积基尾部的少许冻结层再次训练，以微调卷积基的部分参数
+conv_base.trainable = True
+set_trainable = False
+for layer in conv_base.layers:
+    if layer.name == 'block5_conv1':
+        set_trainable = True
+    if set_trainable:
+        layer.trainable = True
+    else:
+        layer.trainable = False
+
+# 结操作后再编译网络才能使冻结生效
+model.compile(loss='binary_crossentropy',
+              optimizer=optimizers.RMSprop(lr=1e-5),
+              metrics=['acc'])
+
+# 【微调训练】
+history = model.fit_generator(
+    train_generator,
+    steps_per_epoch=100,
+    epochs=100,
+    validation_data=validation_generator,
+    validation_steps=50)
+
+# 保存模型
+model.save('05_dogs_cats_augement.h5')
+
+
+def smooth_curve(points, factor=0.8):
+    """使用两点均值插值将曲线变得平滑
+
+    Args:
+        points ([type]): 需要处理的点列
+        factor (float, optional): 前一个点占两点插值的比重. Defaults to 0.8.
+
+    Returns:
+        [type]: 新的点列
+    """
+    smoothed_points = []
+    for point in points:
+        if smoothed_points:
+            previous = smoothed_points[-1]
+            smoothed_points.append(previous * factor + point * (1 - factor))
+        else:
+            smoothed_points.append(point)
+    return smoothed_points
+
 
 # 观察训练期间的损失和精度曲线
 acc = history.history['acc']
@@ -76,13 +124,22 @@ val_acc = history.history['val_acc']
 loss = history.history['loss']
 val_loss = history.history['val_loss']
 epochs = range(1, len(acc) + 1)
-plt.plot(epochs, acc, 'c-.', label='Training acc')
-plt.plot(epochs, val_acc, 'c', label='Validation acc')
+plt.plot(epochs, smooth_curve(acc), 'c-.', label='Training acc')
+plt.plot(epochs, smooth_curve(val_acc), 'c', label='Validation acc')
 plt.title('Training and validation accuracy')
 plt.legend()
 plt.figure()
-plt.plot(epochs, loss, 'm-.', label='Training loss')
-plt.plot(epochs, val_loss, 'm', label='Validation loss')
+plt.plot(epochs, smooth_curve(loss), 'm-.', label='Training loss')
+plt.plot(epochs, smooth_curve(val_loss), 'm', label='Validation loss')
 plt.title('Training and validation loss')
 plt.legend()
 plt.show()
+
+# 最终的测试精度评估
+test_generator = test_datagen.flow_from_directory(
+    test_dir,
+    target_size=(150, 150),
+    batch_size=20,
+    class_mode='binary')
+test_loss, test_acc = model.evaluate_generator(test_generator, steps=50)
+print('test acc:', test_acc)
