@@ -81,7 +81,7 @@ model.add(Dense(32, activation='relu'))
 model.add(Dense(1, activation='sigmoid'))
 model.summary()
 
-# 加载Glove嵌入的权重向量到嵌入层，并设置为不随训练改变权重
+# 加载Glove嵌入的权重向量到嵌入层，并设置为不随训练改变权重（若注释调这两句，则等同于不使用预训练词嵌入）
 model.layers[0].set_weights([embedding_matrix])
 model.layers[0].trainable = False
 
@@ -112,3 +112,28 @@ plt.plot(epochs, val_loss, 'b', label='Validation loss')
 plt.title('Training and validation loss')
 plt.legend()
 plt.show()
+
+# 加载测试文本和对应情感标记
+test_dir = os.path.join(imdb_dir, 'test')
+labels = []
+texts = []
+for label_type in ['neg', 'pos']:
+    dir_name = os.path.join(test_dir, label_type)
+    for fname in sorted(os.listdir(dir_name)):
+        if fname[-4:] == '.txt':
+            f = open(os.path.join(dir_name, fname), encoding='utf-8')
+            texts.append(f.read())
+            f.close()
+            if label_type == 'neg':
+                labels.append(0)
+            else:
+                labels.append(1)
+
+# 使用在训练数据上训练好的分词器，对测试数据进行分词操作
+sequences = tokenizer.texts_to_sequences(texts)
+x_test = pad_sequences(sequences, maxlen=maxlen)
+y_test = np.asarray(labels)
+
+# 在测试集上评估模型
+model.load_weights('pre_trained_glove_model.h5')
+model.evaluate(x_test, y_test)
