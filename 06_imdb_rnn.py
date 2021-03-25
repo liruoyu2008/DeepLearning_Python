@@ -1,5 +1,6 @@
 import imp
 from keras.datasets import imdb
+from keras.layers.recurrent import LSTM
 from keras.preprocessing import sequence
 from keras.layers import Dense, Embedding, SimpleRNN
 from keras.models import Sequential
@@ -22,7 +23,9 @@ print('input_test shape:', input_test.shape)
 # 构建带有RNN层的网络模型
 model = Sequential()
 model.add(Embedding(max_features, 32))
-model.add(SimpleRNN(32))
+# 使用simpleRnn还是lstm
+# model.add(SimpleRNN(32))
+model.add(LSTM(32))
 model.add(Dense(1, activation='sigmoid'))
 model.compile(optimizer='rmsprop', loss='binary_crossentropy', metrics=['acc'])
 history = model.fit(input_train, y_train,
