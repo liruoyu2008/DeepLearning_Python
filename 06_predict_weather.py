@@ -43,7 +43,7 @@ float_data /= std
 
 
 def generator(data, lookback, delay, min_index, max_index,
-              shuffle=False, batch_size=128, step=6):
+              shuffle=False, batch_size=128, step=6, reverse=False):
     """生成时间序列样本及其目标的生成器
 
     Args:
@@ -55,6 +55,7 @@ def generator(data, lookback, delay, min_index, max_index,
         shuffle (bool, optional): 是打乱样本，还是按顺序抽取样本. Defaults to False.
         batch_size (int, optional): 每个批量的样本数. Defaults to 128.
         step (int, optional): 数据采样的周期. Defaults to 6.
+        reverse (bool, optional): 是否反转时间序列. Defaults to False.
 
     Yields:
         turple: 一个元组 (samples, targets)，其中 samples 是输入数据的一个批量，targets 是对应的目标温度数组
@@ -79,7 +80,10 @@ def generator(data, lookback, delay, min_index, max_index,
             indices = range(rows[j] - lookback, rows[j], step)
             samples[j] = data[indices]
             targets[j] = data[rows[j] + delay][1]
-        yield samples, targets
+        if(reverse == True):
+            yield samples[:, ::-1, :], targets
+        else:
+            yield samples, targets
 
 
 # 训练数据、评估数据、测试数据的迭代器
@@ -204,5 +208,3 @@ plt.plot(epochs, val_loss, 'b', label='Validation loss')
 plt.title('Training and validation loss')
 plt.legend()
 plt.show()
-
-#  
