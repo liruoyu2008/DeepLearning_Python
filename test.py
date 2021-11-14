@@ -1,2 +1,4 @@
-with open('utils.py','w+') as f:
-    pass
+a = 1;
+
+def b():
+    print(2)
